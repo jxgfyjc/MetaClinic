@@ -1,0 +1,146 @@
+{
+  "timings": {
+    "extract_s": "72.3",
+    "ai_analyze_s": "21.2",
+    "plan_gen_s": "12.1"
+  },
+  "robustness": {
+    "same_batch_duplicate_file": [
+      "duplicate_file"
+    ],
+    "cross_batch_duplicate_stats": {
+      "cases": 40,
+      "duplicates_exact": 40,
+      "excluded": 40,
+      "pending": 40
+    },
+    "active_entries_total": 67,
+    "active_entries_by_category": {
+      "formula": 7,
+      "herb_pair": 8,
+      "note": 40,
+      "preference": 1,
+      "principle": 6,
+      "reasoning": 5
+    },
+    "traceability_sample": {
+      "entry_id": "ste_01m879r8s6sv6fecnsw2",
+      "category": "formula",
+      "title": "妇科病证：常用药物组合（归纳）",
+      "evidence_count": 5,
+      "first_evidence": {
+        "quote": "桃仁10g 全当归10g",
+        "case_seq": 65,
+        "source_label": "example.md · 案33 卵巢囊肿（瘀阻胞络，水湿停聚）"
+      }
+    }
+  },
+  "screenshots": [
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/01_login_metaclinic.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/02_style_import_input.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/03_style_import_parsed_cases.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/04a_style_extract_local.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/04b_style_extract_done.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/05_style_entries_pending.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/06_style_bulk_selected.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/07_style_bulk_confirm.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/08_style_bulk_result.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/09_style_entries_persisted.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/10_style_profile_overview.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/11_style_profile_library.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/12_workstation_home.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/13_encounter_intake.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/14_encounter_ai_analysis.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/15_encounter_diagnosis_review.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/16_encounter_style_selected.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/17_encounter_plan_comparison.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/18_encounter_plan_confirmed.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/19_encounter_rx_populated.png",
+    "/cephfs/yujc/metaclinic-promo/phase1/screenshots/20_encounter_record.png"
+  ],
+  "errors": [],
+  "profile_id": "sty_01m879nf44fzyf1x6p97",
+  "import_id": "sti_01m879npxsy9h62e957b",
+  "import_stats_parsed": {
+    "files": 1,
+    "sources_failed": 0,
+    "cases": 40,
+    "notes": 40,
+    "pending": 80,
+    "confirmed": 0,
+    "excluded": 0,
+    "with_prescription": 40,
+    "no_prescription": 0,
+    "anomalous": 7,
+    "redaction_high": 0,
+    "redaction_medium": 5,
+    "duplicates": 0,
+    "duplicates_exact": 0,
+    "duplicates_near": 0,
+    "possible_revisits": 0
+  },
+  "cases_sample": {
+    "total": 80,
+    "cases": 40,
+    "notes": 40,
+    "redaction_risks": {
+      "low": 75,
+      "medium": 5,
+      "high": 0
+    },
+    "case1_text_preview": "案1 顽痹（类风湿关节炎）肾虚督空，痰瘀阻络\n\n【姓名】，男，51岁。四肢关节肿胀一年多，左手无名指、小指不能伸屈，晨僵明显，怯冷，腰膝酸软，舌淡苔白，脉细涩。辨为顽痹，肾虚督空为本，痰瘀深伏骨骱为标。治宜益肾蠲痹，虫类搜剔。处方：熟地黄2",
+    "case1_herbs": [
+      "熟地黄20g",
+      "当归10g",
+      "鸡血藤30g",
+      "青风藤30g",
+      "淫羊藿15g",
+      "全蝎3g",
+      "乌梢蛇15g",
+      "土鳖虫10g",
+      "甘草6g"
+    ],
+    "duplicates": []
+  },
+  "remaining_pending_after_bulk": 0,
+  "import_stats_extracted": {
+    "files": 1,
+    "sources_failed": 0,
+    "cases": 40,
+    "notes": 40,
+    "pending": 0,
+    "confirmed": 80,
+    "excluded": 0,
+    "with_prescription": 40,
+    "no_prescription": 0,
+    "anomalous": 7,
+    "redaction_high": 0,
+    "redaction_medium": 5,
+    "duplicates": 0,
+    "duplicates_exact": 0,
+    "duplicates_near": 0,
+    "possible_revisits": 0,
+    "new": 67,
+    "updates": 0,
+    "refreshed": 0,
+    "unchanged": 0,
+    "draft_version_id": "stv_01m879nf4ev1xded383p",
+    "groups": 7,
+    "below_threshold": [],
+    "extract_failures": 0
+  },
+  "entries_summary": {
+    "total": 67,
+    "clean": 62,
+    "critical": 5
+  },
+  "auth_declare_status": 201,
+  "auth_approve_status": 200,
+  "encounter_id": "enc_01m879s69k4ax1thywd4",
+  "ai_analysis_status": "succeeded",
+  "ai_candidates_count": 7,
+  "plan_style_comparison_count": 3,
+  "plan_therapy_initial_count": 2,
+  "prescriptions_generated": 201,
+  "prescriptions_count": 1
+}

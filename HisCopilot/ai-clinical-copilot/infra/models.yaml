@@ -1,0 +1,187 @@
+# =============================================================================
+# AI Clinical Copilot — 统一模型注册表
+# 由 Phase 0 环境探测自动生成（2026-10-07）。
+# 业务层只读此文件 + .env，绝不硬编码绝对路径或 runtime 类型。
+# =============================================================================
+
+# 模型根目录（所有模型权重均位于此）
+models_root: /home/ma-user/modelarts/user-job-dir/yujc/HisCopilot/models
+
+# 全局开关
+options:
+  enable_second_opinion: false   # HuatuoGPT-o1-72B 仍在下载中，默认关闭
+  enable_real_his: false         # MVP 阶段只走 MockHISAdapter
+  no_external_llm: true           # 患者数据严禁出网，只走内网模型
+  enable_ai_failure_simulation: false
+
+# -----------------------------------------------------------------------------
+# 模型定义
+#  - role:        业务抽象角色（业务层只认 role）
+#  - path:        权重目录（相对 models_root）
+#  - arch:        架构标识，供 model-gateway 选择 runtime
+#  - runtime:     首选运行时（host process 模式；Docker 不可用）
+#  - provider:    model-gateway 暴露给业务层的协议
+#  - gpu:         目标 GPU（基于实测显存分配，见 docs/gpu-profile.md）
+#  - dtype:       加载精度
+#  - status:      探测时的可用性
+# -----------------------------------------------------------------------------
+models:
+
+  # ---- 主力临床推理模型（西医 / 综合 / 结构化） ----
+  clinical_main:
+    role: clinical_main
+    name: Qwen3.8-27B
+    path: Qwen3.8-27B
+    arch: qwen3_5_vlm                  # Qwen3_5ForConditionalGeneration（VLM+LLM）
+    type: vlm_llm
+    runtime: transformers             # 自定义架构，vLLM 暂不支持，先用 transformers + bf16
+    provider: openai_compatible
+    base_url: http://127.0.0.1:7870/v1
+    model_id: Qwen3.8-27B
+    gpu: 1                            # GPU1 80GB 空闲，bf16 ~52GB 可容纳
+    dtype: bfloat16
+    context_length: 262144
+    prompt_version: western_analysis_v1
+    status: complete                  # 18/18 shards, index OK, total 55.5GB
+    notes: |
+      主力模型。num_hidden_layers=64, hidden=5120, vocab=248320。
+      支持 vision（vision_config 存在），可处理多模态病例。
+      自定义 chat_template.jinja，需 trust_remote_code 风格加载。
+
+  # ---- 中医专用模型 ----
+  tcm:
+    role: tcm
+    name: ShizhenGPT-7B-Omni
+    path: ShizhenGPT-7B-Omni
+    arch: qwen2_5_vl_audio             # Qwen2_5_VL_Audio_ForConditionalGeneration
+    type: vlm_llm
+    runtime: transformers             # auto_map 自定义 modeling_shizhen.py，需 transformers==4.51.0
+    provider: openai_compatible
+    base_url: http://127.0.0.1:7871/v1
+    model_id: ShizhenGPT-7B-Omni
+    gpu: 1
+    dtype: bfloat16                   # ~17GB，与 clinical_main 共享 GPU1（80GB 足够）
+    context_length: 128000
+    prompt_version: tcm_analysis_v1
+    status: complete                   # 4/4 shards, index OK, total 17.8GB
+    notes: |
+      中医四诊（望闻问切）多模态模型。audio_config + vision_config。
+      需 trust_remote_code=True，依赖 qwen_vl_utils / librosa。
+      注意：transformers 必须 ==4.51.0，与 clinical_main（5.18）冲突 →
+      必须独立 Python 进程 / 独立 conda 子环境运行（见 docs/assumptions.md）。
+
+  # ---- 语音识别 ----
+  asr:
+    role: asr
+    name: Qwen3-ASR-1.7B
+    path: Qwen3-ASR-1.7B
+    arch: qwen3_asr
+    type: asr
+    runtime: transformers             # 提供完整 safetensors 权重 + gguf 备用
+    provider: openai_compatible
+    base_url: http://127.0.0.1:7872/v1
+    model_id: Qwen3-ASR-1.7B
+    gpu: 1
+    dtype: bfloat16                   # ~4GB，轻量
+    status: partial                   # 仅 model-00001-of-00002.safetensors + gguf
+    notes: |
+      ⚠ 缺 model-00002-of-00002.safetensors 与 model.safetensors.index.json。
+      当前可用：Qwen3-ASR-1.7B-Q8_0.gguf（完整，2.1GB）→ 走 llama.cpp/llama-server
+      或等补充 safetensors 后走 transformers。MVP 先用 gguf 路径。
+      config.json 也缺失，需从 HF 补或用 gguf 自描述。
+
+  # ---- 向量检索 ----
+  embedding:
+    role: embedding
+    name: Qwen3-Embedding-8B
+    path: Qwen3-Embedding-8B
+    arch: qwen3                        # Qwen3ForCausalLM（sentence-transformers 风格）
+    type: embedding
+    runtime: transformers             # sentence-transformers / FlagEmbedding
+    provider: openai_compatible
+    base_url: http://127.0.0.1:7873/v1
+    model_id: Qwen3-Embedding-8B
+    gpu: 1
+    dtype: bfloat16                   # ~15GB
+    context_length: 40960
+    status: complete                   # 4/4 shards, index OK, total 15.1GB
+    notes: 含 1_Pooling/modules.json，可作为 sentence-transformers 模型加载。
+
+  # ---- 重排序 ----
+  reranker:
+    role: reranker
+    name: Qwen3-Reranker-8B
+    path: Qwen3-Reranker-8B
+    arch: qwen3
+    type: reranker
+    runtime: transformers             # FlagEmbedding reranker 风格（1_LogitScore）
+    provider: openai_compatible
+    base_url: http://127.0.0.1:7874/v1
+    model_id: Qwen3-Reranker-8B
+    gpu: 1
+    dtype: bfloat16                   # ~16GB
+    context_length: 40960
+    status: complete                   # 5/5 shards, index OK, total 16.4GB
+    notes: 含 1_LogitScore，FlagEmbedding 风格 reranker。
+
+  # ---- OCR ----
+  ocr:
+    role: ocr
+    name: PaddleOCR-VL-1.6
+    path: PaddleOCR-VL-1.6
+    arch: paddleocr_vl
+    type: ocr
+    runtime: transformers_fallback     # gguf 损坏（缺 qwen2vl.context_length），降级用 clinical_main VLM
+    provider: openai_compatible
+    base_url: http://127.0.0.1:7870/v1   # 复用 clinical_main 作为 OCR VLM 兜底
+    model_id: Qwen3.8-27B
+    gpu: 1
+    dtype: bfloat16
+    status: degraded                    # gguf 加载失败，safetensors 缺 processor 文件
+    enabled: true                        # 通过 clinical_main 兜底，仍可用
+    notes: |
+      PaddleOCR-VL-1.6 gguf 在 llama-cpp 0.3.36 报 qwen2vl.context_length 缺失，无法加载。
+      model.safetensors 路径也缺 tokenizer/processor 文件。
+      降级：OCR 由 clinical_main (Qwen3.8-27B VLM) 兜底，明确标注降级。
+      后续需补 PaddleOCR-VL 完整 repo 或换 PaddleOCR 经典版。
+
+  # ---- 第二意见（可选，默认关闭） ----
+  second_opinion:
+    role: second_opinion
+    name: HuatuoGPT-o1-72B
+    path: HuatuoGPT-o1-72B
+    arch: qwen2                        # Qwen2ForCausalLM
+    type: llm
+    runtime: transformers             # 标准架构，未来可用 vLLM
+    provider: openai_compatible
+    base_url: http://127.0.0.1:7876/v1
+    model_id: HuatuoGPT-o1-72B
+    gpu: 0                            # 72B bf16 ~144GB，单卡装不下；需 TP=2 或量化
+    dtype: bfloat16
+    context_length: 32768
+    status: complete                  # 31/31 shards downloaded (86GB)
+    enabled: false
+    notes: |
+      仅用于疑难病例第二意见 / benchmark，非常驻。
+      72B 全量需 ~144GB（bf16），2×80GB 需 TP=2 或加载 q4 量化。
+      MVP 阶段不启用，待 download 完成且腾出 GPU 后再测。
+
+# -----------------------------------------------------------------------------
+# GPU 分配总览（详见 docs/gpu-profile.md）
+# -----------------------------------------------------------------------------
+gpu_allocation:
+  GPU0:
+    total_vram_gb: 80
+    used_by_other: 46GB               # ComfyUI main.py 占用，不可关闭
+    free_at_probe: 35GB
+    assigned: []                     # MVP 暂不分配常驻模型（留给 second_opinion 临时）
+    note: "ComfyUI 进程占用 ~46GB，本系统不得挤占。"
+  GPU1:
+    total_vram_gb: 80
+    used_by_other: 0.4GB
+    free_at_probe: 81GB
+    assigned: [clinical_main, tcm, asr, embedding, reranker, ocr]
+    note: |
+      clinical_main(bf16 ~52GB) + tcm(~17GB) 已 ~69GB，
+      embedding/reranker/ocr/asr 需按需加载或分时复用。
+      建议常驻 clinical_main+tcm，其余按需 load/unload 或共享同进程。

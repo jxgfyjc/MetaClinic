@@ -1,0 +1,40 @@
+# model weights & large assets (never push)
+models/
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+*.ckpt
+ai-clinical-copilot/assets/fonts/
+
+# secrets / certs
+.env
+.env.local
+*.pem
+*.key
+ai-clinical-copilot/apps/doctor-web/cert/
+
+# frontend build output & deps
+node_modules/
+.next/
+.next-*/
+*.tsbuildinfo
+dist/
+build/
+
+# runtime data
+ai-clinical-copilot/data/
+ai-clinical-copilot/logs/
+ai-clinical-copilot/run/
+*.db
+*.sqlite*
+*.log
+*.ndjson
+
+# python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/

@@ -1,0 +1,11 @@
+# Qwen3-Embedding-8B smoke test
+- date: 2026-10-07
+- env: hiscopilot (conda)
+- runtime: sentence-transformers (bf16, GPU1)
+- load_time_s: 18.5
+- vram_mb: ~15400
+- endpoint: http://127.0.0.1:7873/v1/embeddings
+- input: ["反复咳嗽3周","糖尿病二甲双胍"]
+- result: OK, 2 embeddings, dim=4096, normalized
+- sample[0:6]: [-0.0165, -0.0086, 0.0181, -0.0527, 0.0083, -0.0056]
+- status: ✅ PASS

@@ -1,0 +1,158 @@
+{
+  "profiles": [
+    {
+      "id": "sty_01m879nf44fzyf1x6p97",
+      "kind": "master",
+      "subject_name": "朱老（示例医案）",
+      "subject_title": "instruct/example.md 演示资料",
+      "subject_dept": "中医内科",
+      "status": "active",
+      "active_version_id": "stv_01m879nf4ev1xded383p",
+      "proxy_created": 1
+    }
+  ],
+  "imports": [
+    {
+      "id": "sti_01m879npxsy9h62e957b",
+      "label": "朱老医案40例（example.md）",
+      "status": "extracted",
+      "extract_mode": "local",
+      "sources_purged_at": "2026-11-24 17:30:43.426293",
+      "stats_json": "{\"files\": 1, \"sources_failed\": 0, \"cases\": 40, \"notes\": 40, \"pending\": 0, \"confirmed\": 80, \"excluded\": 0, \"with_prescription\": 40, \"no_prescription\": 0, \"anomalous\": 7, \"redaction_high\": 0, \"redaction_medium\": 5, \"duplicates\": 0, \"duplicates_exact\": 0, \"duplicates_near\": 0, \"possible_revisits\": 0, \"new\": 67, \"updates\": 0, \"refreshed\": 0, \"unchanged\": 0, \"draft_version_id\": \"stv_01m879nf4ev1xded383p\", \"groups\": 7, \"below_threshold\": [], \"extract_failures\": 0}"
+    },
+    {
+      "id": "sti_01m879v00vmwtyv095jn",
+      "label": "",
+      "status": "needs_review",
+      "extract_mode": "",
+      "sources_purged_at": null,
+      "stats_json": "{\"files\": 1, \"sources_failed\": 0, \"cases\": 1, \"notes\": 0, \"pending\": 1, \"confirmed\": 0, \"excluded\": 0, \"with_prescription\": 0, \"no_prescription\": 1, \"anomalous\": 1, \"redaction_high\": 0, \"redaction_medium\": 0, \"duplicates\": 0, \"duplicates_exact\": 0, \"duplicates_near\": 0, \"possible_revisits\": 0}"
+    },
+    {
+      "id": "sti_01m879v021039rsjfrd1",
+      "label": "跨批次重复校验",
+      "status": "cancelled",
+      "extract_mode": "",
+      "sources_purged_at": "2026-11-24 17:32:15.873453",
+      "stats_json": "{\"files\": 1, \"sources_failed\": 0, \"cases\": 40, \"notes\": 40, \"pending\": 40, \"confirmed\": 0, \"excluded\": 40, \"with_prescription\": 40, \"no_prescription\": 0, \"anomalous\": 7, \"redaction_high\": 0, \"redaction_medium\": 5, \"duplicates\": 40, \"duplicates_exact\": 40, \"duplicates_near\": 0, \"possible_revisits\": 0}"
+    }
+  ],
+  "case_summary": {
+    "case": 40,
+    "note": 40
+  },
+  "case_redaction_risks": {
+    "low": 75,
+    "medium": 5
+  },
+  "case1_redacted": {
+    "seq": 1,
+    "section": "痹证与骨关节病",
+    "source_label": "example.md · 案1 顽痹（类风湿关节炎）肾虚督空，痰瘀阻络",
+    "text": "案1 顽痹（类风湿关节炎）肾虚督空，痰瘀阻络\n\n【姓名】，男，51岁。四肢关节肿胀一年多，左手无名指、小指不能伸屈，晨僵明显，怯冷，腰膝酸软，舌淡苔白，脉细涩。辨为顽痹，肾虚督空为本，痰瘀深伏骨骱为标。治宜益肾蠲痹，虫类搜剔。处方：熟地黄20g，全当归10g，鸡血藤30g，青风藤30g，仙灵脾15g，炙全蝎3g（研末分吞），乌梢蛇15g（研末分吞），地鳖虫10g，甘草6g。另服益肾蠲痹丸，每服6g，日2次。",
+    "redaction_json": "{\"counts\": {\"\\u59d3\\u540d\": 1}, \"risk\": \"low\", \"residual\": []}"
+  },
+  "entries_by_status": {
+    "approved": 67
+  },
+  "entries_with_reviewer": 67,
+  "entries_ai_eligible": {
+    "1": 62,
+    "0": 5
+  },
+  "audit_counts": {
+    "analysis.complete": 1,
+    "analysis.start": 1,
+    "auth.login": 3,
+    "dx.accept": 2,
+    "dx.reject": 5,
+    "encounter.create": 1,
+    "encounter.start": 1,
+    "patient.create": 1,
+    "plan.confirm": 1,
+    "plan.create": 1,
+    "plan.generated": 1,
+    "record.create": 1,
+    "rx.create": 1,
+    "style.auth.approve": 1,
+    "style.auth.declare": 1,
+    "style.case.bulk": 2,
+    "style.encounter.choose": 1,
+    "style.entry.approve": 62,
+    "style.entry.approve_no_ai": 5,
+    "style.entry.bulk_approve": 2,
+    "style.import.cancel": 1,
+    "style.import.create": 3,
+    "style.import.extract_start": 1,
+    "style.import.extracted": 1,
+    "style.import.parsed": 3,
+    "style.plan.decision": 1,
+    "style.profile.create": 1,
+    "style.version.create": 1,
+    "style.version.publish": 1,
+    "therapy.accept": 2
+  },
+  "bulk_audit_rows": [
+    {
+      "actor_name": "张明",
+      "action": "style.entry.bulk_approve",
+      "summary": "批量通过 6 条（跳过 0）",
+      "detail_json": "{\"request_id\": \"0a9fc059-1af0-48e0-aa5d-583bef0402f2\", \"approved_ids\": [\"ste_01m879r8s7174q2f8t7q\", \"ste_01m879r8s83anmkbwkhm\", \"ste_01m879r8s9e6qtjc03vj\", \"ste_01m879r8sanxk4httpyd\", \"ste_01m879r8s64ncntcmzws\", \"ste_01m879r8s5vm4rdjy2my\"], \"skipped\": []}",
+      "ts": "2026-11-24 17:30:53.501704"
+    },
+    {
+      "actor_name": "张明",
+      "action": "style.entry.bulk_approve",
+      "summary": "批量通过 55 条（跳过 0）",
+      "detail_json": "{\"request_id\": \"e2e-rest-clean\", \"approved_ids\": [\"ste_01m879r8s494hq77je2n\", \"ste_01m879r8rx0qng2vncsv\", \"ste_01m879r8sbk7vmt5r6re\", \"ste_01m879r8scmfa4x7wzwq\", \"ste_01m879r8s325cvn2f7ms\", \"ste_01m879r8rze3t04gv74g\", \"ste_01m879r8shmdx2a9sd0a\", \"ste_01m879r8sjar8dkhm0ty\", \"ste_01m879r8skdrv69093s5\", \"ste_01m879r8sm59egmza50f\", \"ste_01m879r8sn9p6fhh589m\", \"ste_01m879r8srrvqy4smx8b\", \"ste_01m879r8ss6am2m5ngae\", \"ste_01m879r8svtgrnrt0086\", \"ste_01m879r8swxpd5tz1njh\", \"ste_01m879r8sy4yxh35t1j0\", \"ste_01m879r8t0ca6y0s46n6\", \"ste_01m879r8t27kg40af8sy\", \"ste_01m879r8t4gws7yzbb71\", \"ste_01m879r8t5ma4t10gvxx\", \"ste_01m879r8t7kmp3qy0t0q\", \"ste_01m879r8t8rqmhaam544\", \"ste_01m879r8t9jt0jq1n2qy\", \"ste_01m879r8taqnv68eeg65\", \"ste_01m879r8tb3rfvgedgdc\", \"ste_01m879r8tccnexhhs3d0\", \"ste_01m879r8td9wgjamcy1g\", \"ste_01m879r8te1vaps3nzws\", \"ste_01m879r8tffpw5ar8z56\", \"ste_01m879r8tgjeg6jxeje0\", \"ste_01m879r8th66cenrfw8a\", \"ste_01m879r8tjxt9crb31x5\", \"ste_01m879r8tkb67m35heph\", \"ste_01m879r8tmjrnm83hrdr\", \"ste_01m879r8tmye30ww35gy\", \"ste_01m879r8tnr9958w1mkn\", \"ste_01m879r8tprzkjs6e63v\", \"ste_01m879r8tp393nnxx28f\", \"ste_01m879r8tq1zh34jn10t\", \"ste_01m879r8trp3ztkmps51\", \"ste_01m879r8trgp1vn2t1x3\", \"ste_01m879r8ts00r8f1dzqr\", \"ste_01m879r8ttv7xwd61v6j\", \"ste_01m879r8ttagaqrgvmqd\", \"ste_01m879r8tv8hm0zrbv75\", \"ste_01m879r8twh1hx3pxkb8\", \"ste_01m879r8rjaet3wzfjqp\", \"ste_01m879r8rnemchq2kg54\", \"ste_01m879r8rv0a9dc8xmgh\", \"ste_01m879r8rwcffhweg1q9\", \"ste_01m879r8sdg8zhhj7nb8\", \"ste_01m879r8ra44pf4wx5pj\", \"ste_01m879r8s0m4sr3je0zq\", \"ste_01m879r8rs10rk04tpxg\", \"ste_01m879r8sdvktfqjzx16\"], \"skipped\": []}",
+      "ts": "2026-11-24 17:30:59.644646"
+    }
+  ],
+  "analyses": [
+    {
+      "id": "ana_01m879s956x207y08wbd",
+      "status": "succeeded",
+      "models_json": "{\"western\": \"Qwen3.8-27B\", \"tcm\": \"ShizhenGPT-7B-Omni\", \"synthesis\": \"Qwen3.8-27B\"}"
+    }
+  ],
+  "analysis_modules": [
+    {
+      "module": "tongue",
+      "status": "skipped",
+      "model": ""
+    },
+    {
+      "module": "western",
+      "status": "succeeded",
+      "model": "Qwen3.8-27B"
+    },
+    {
+      "module": "tcm",
+      "status": "succeeded",
+      "model": "ShizhenGPT-7B-Omni"
+    },
+    {
+      "module": "synthesis",
+      "status": "succeeded",
+      "model": "Qwen3.8-27B"
+    }
+  ],
+  "treatment_plans": [
+    {
+      "id": "pln_01m879t7p72jgvxwryfn",
+      "status": "confirmed",
+      "models_json": "{\"plan\": \"Qwen3.8-27B\"}"
+    }
+  ],
+  "prescriptions": [
+    {
+      "id": "rx_01m879tww37prbvpyfjn",
+      "rx_no": "RX20261124-0001",
+      "rx_type": "herbal",
+      "status": "draft",
+      "title": "益肾蠲痹汤"
+    }
+  ],
+  "prescriptions_count": 1,
+  "deepseek_mentions_in_db_models": 0
+}

@@ -1,0 +1,15 @@
+# Qwen3-Reranker-8B smoke test
+- date: 2026-10-07
+- env: hiscopilot
+- runtime: FlagEmbedding FlagReranker (fp16, GPU1)
+- load_time_s: 5.9
+- vram_mb: ~15100
+- endpoint: http://127.0.0.1:7874/v1/rerank
+- query: "咳嗽3周"
+- documents: ["慢性咳嗽常见于哮喘","糖尿病用药二甲双胍","舌淡红苔白稍腻属风寒"]
+- result: ✅ PASS
+  - #0 score=0.987 慢性咳嗽常见于哮喘
+  - #1 score=0.855 糖尿病用药二甲双胍
+  - #2 score=0.736 舌淡红苔白稍腻属风寒
+- patch: single-pair scoring loop (avoid batch padding issue); pad_token=eos
+- status: ✅ PASS

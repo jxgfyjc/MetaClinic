@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8fafc;
+  --fg: #0f172a;
+}
+
+html, body { background: var(--bg); color: var(--fg); }
+
+/* simple card / badge helpers used across pages */
+@layer components {
+  .card {
+    @apply bg-white rounded-lg shadow-sm border border-slate-200 p-4;
+  }
+  .btn {
+    @apply inline-flex items-center px-3 py-1.5 rounded text-sm font-medium transition;
+  }
+  .btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700 disabled:opacity-50; }
+  .btn-ghost { @apply btn bg-slate-100 text-slate-700 hover:bg-slate-200; }
+  .badge { @apply inline-block text-xs px-2 py-0.5 rounded-full; }
+  .badge-ok { @apply badge bg-green-100 text-green-700; }
+  .badge-warn { @apply badge bg-amber-100 text-amber-700; }
+  .badge-err { @apply badge bg-red-100 text-red-700; }
+  .badge-muted { @apply badge bg-slate-100 text-slate-600; }
+}
+
+/* updatev2_2 §6d: print CSS for PDF export via window.print() */
+@media print {
+  /* Hide everything outside the print area */
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  /* Position the print area at top-left */
+  .print-area { position: absolute; left: 0; top: 0; width: 100%; }
+  .print-card { box-shadow: none !important; border: none !important; }
+  .print\:hidden { display: none !important; }
+  /* Color adjustments for print */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+}
